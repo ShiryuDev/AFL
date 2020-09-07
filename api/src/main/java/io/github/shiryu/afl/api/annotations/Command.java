@@ -1,4 +1,4 @@
-package io.github.shiryu.afl.annotations;
+package io.github.shiryu.afl.api.annotations;
 
 import org.jetbrains.annotations.NotNull;
 
