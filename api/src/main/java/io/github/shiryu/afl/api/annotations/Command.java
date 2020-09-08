@@ -18,7 +18,7 @@ public @interface Command {
     String description() default "";
 
     @NotNull
-    String[] permission() default "";
+    String[] permissions() default "";
 
     @NotNull
     String usage() default "";

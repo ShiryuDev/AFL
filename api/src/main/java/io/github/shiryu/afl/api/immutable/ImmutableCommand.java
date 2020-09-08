@@ -1,25 +1,29 @@
 package io.github.shiryu.afl.api.immutable;
 
 import io.github.shiryu.afl.api.CommandBase;
+import io.github.shiryu.afl.api.CommandManager;
 import io.github.shiryu.afl.api.annotations.Command;
+import io.github.shiryu.afl.api.sender.CommandSender;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Locale;
 
 @Getter
 @RequiredArgsConstructor
-public class ImmutableCommand {
+public abstract class ImmutableCommand {
 
-    private final CommandBase base;
-    private final List<ImmutableParameter> parameters;
-    private final String[] aliases;
-    private final String description;
-    private final String permission;
-    private final String usage;
-    private final Command.Target target;
+    protected  final CommandBase base;
+    protected  final List<ImmutableParameter> parameters;
+    protected  final Method method;
+    protected  final String[] aliases;
+    protected  final String[] permission;
+    protected  final String description;
+    protected  final String usage;
+    protected  final Command.Target target;
 
     @NotNull
     public String getName(){
@@ -42,4 +46,7 @@ public class ImmutableCommand {
 
         return "/" + aliasUsed.toLowerCase(Locale.ENGLISH) + " " + stringBuilder.toString().trim().toLowerCase(Locale.ENGLISH);
     }
+
+    public abstract void execute(@NotNull final CommandManager commandManager, @NotNull final CommandSender sender, @NotNull final String command, @NotNull final String[] args);
+
 }

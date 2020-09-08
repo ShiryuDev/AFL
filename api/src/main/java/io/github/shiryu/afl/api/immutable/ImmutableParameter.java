@@ -9,5 +9,6 @@ public class ImmutableParameter {
 
     private final String name;
     private final boolean optional;
+    private final boolean sender;
     private final Class<?> elementType;
 }
