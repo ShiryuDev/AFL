@@ -25,6 +25,10 @@ public abstract class ImmutableCommand {
     protected  final String usage;
     protected  final Command.Target target;
 
+    public boolean canAccess(@NotNull final CommandSender sender){
+        return sender.hasPermission(permission[0]);
+    }
+
     @NotNull
     public String getName(){
         return aliases[0];

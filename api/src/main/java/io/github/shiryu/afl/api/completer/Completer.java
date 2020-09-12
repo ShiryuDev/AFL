@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public interface CommandCompleter {
+public interface Completer {
 
     @NotNull
-    List<String> getSuggestions(@NotNull final CommandSender sender, @NotNull final String command, @NotNull final String[] args);
+    List<String> getSuggestions(@NotNull final CommandSender sender, @NotNull final String value);
 }

@@ -5,6 +5,7 @@ import io.github.shiryu.afl.api.CommandManager;
 import io.github.shiryu.afl.api.annotations.Command;
 import io.github.shiryu.afl.api.annotations.Optional;
 import io.github.shiryu.afl.api.annotations.Sender;
+import io.github.shiryu.afl.api.completer.impl.BooleanCompleter;
 import io.github.shiryu.afl.api.immutable.ImmutableCommand;
 import io.github.shiryu.afl.api.immutable.ImmutableParameter;
 import io.github.shiryu.afl.api.transformer.impl.*;
@@ -67,8 +68,7 @@ public class BukkitCommandManager extends CommandManager<Plugin> {
                     new BukkitCommand(
                             this.plugin,
                             new BukkitExecutor(
-                                    this,
-                                    immutable
+                                    this
                             ),
                             immutable
                     )
@@ -89,6 +89,8 @@ public class BukkitCommandManager extends CommandManager<Plugin> {
         registerTransformer(Integer.class, new IntegerTransformer());
         registerTransformer(Long.class, new LongTransformer());
 
+        registerCompleter(Boolean.class, new BooleanCompleter());
+
     }
 
     @NotNull
@@ -102,4 +104,5 @@ public class BukkitCommandManager extends CommandManager<Plugin> {
             throw new IllegalStateException("Intake could not find CommandMap from server", error);
         }
     }
+
 }

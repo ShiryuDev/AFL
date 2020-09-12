@@ -1,5 +1,6 @@
 package io.github.shiryu.afl.bukkit;
 
+import com.google.common.collect.Lists;
 import io.github.shiryu.afl.api.immutable.ImmutableCommand;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +16,15 @@ import java.util.List;
 public class BukkitExecutor implements CommandExecutor, TabCompleter {
 
     private final BukkitCommandManager commandManager;
-    private final BukkitImmutableCommand command;
 
     @Override
     public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command cmd, @NotNull final String string, @NotNull final String[] args) {
-        switch(this.command.getTarget()){
+        final ImmutableCommand command = commandManager.findCommand(cmd.getName());
+
+        if (command == null)
+            return false;
+
+        switch(command.getTarget()){
             case PLAYER:
                 if (!(sender instanceof Player))
                     return false;
@@ -33,7 +38,7 @@ public class BukkitExecutor implements CommandExecutor, TabCompleter {
         }
 
 
-        this.command.execute(
+        command.execute(
                 commandManager,
                 new BukkitCommandSender(sender),
                 string,
@@ -45,6 +50,6 @@ public class BukkitExecutor implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        return null;
+        return commandManager.getSuggestions(new BukkitCommandSender(commandSender), s);
     }
 }
