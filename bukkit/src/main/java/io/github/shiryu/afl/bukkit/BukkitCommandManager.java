@@ -23,6 +23,7 @@ import java.util.List;
 public class BukkitCommandManager extends CommandManager<Plugin> {
 
     private Plugin plugin;
+    private CommandMap commandMap;
     private final List<org.bukkit.command.Command> bukkitCommands = new ArrayList<>();
 
     @Override
@@ -64,24 +65,31 @@ public class BukkitCommandManager extends CommandManager<Plugin> {
                     immutable
             );
 
-            bukkitCommands.add(
-                    new BukkitCommand(
-                            this.plugin,
-                            new BukkitExecutor(
-                                    this
-                            ),
-                            immutable
-                    )
+            final BukkitCommand command = new BukkitCommand(
+                    this.plugin,
+                    new BukkitExecutor(
+                            this
+                    ),
+                    immutable
             );
 
+            for (String alias : immutable.getAliases())
+                commandMap.register(alias, command);
 
+            bukkitCommands.add(
+                    command
+            );
+            
             commands.sort(Comparator.comparingInt(o -> o.getName().length()));
+
         }
     }
 
     @Override
     public void handle(@NotNull final Plugin plugin) {
         this.plugin = plugin;
+
+        this.commandMap = getCommandMap();
 
         registerTransformer(Boolean.class, new BooleanTransformer());
         registerTransformer(Double.class, new DoubleTransformer());
@@ -101,7 +109,7 @@ public class BukkitCommandManager extends CommandManager<Plugin> {
             field.setAccessible(true);
             return CommandMap.class.cast(field.get(manager));
         } catch (NoSuchFieldException | IllegalAccessException error) {
-            throw new IllegalStateException("Intake could not find CommandMap from server", error);
+            throw new IllegalStateException("could not find CommandMap from server", error);
         }
     }
 
