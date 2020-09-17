@@ -79,7 +79,7 @@ public class BukkitCommandManager extends CommandManager<Plugin> {
             bukkitCommands.add(
                     command
             );
-            
+
             commands.sort(Comparator.comparingInt(o -> o.getName().length()));
 
         }
