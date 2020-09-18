@@ -34,6 +34,12 @@ public class BukkitImmutableCommand extends ImmutableCommand {
         for (int i = 0; i < getParameters().size(); i++){
             final ImmutableParameter parameter = getParameters().get(i);
 
+            if (parameter.getElementType().equals(String[].class)){
+                transformedParameters.add(args);
+
+                continue;
+            }
+
             String passedParameter = (i < args.length ? args[i] : "").trim();
 
             if (parameter.isOptional() && passedParameter.isEmpty())

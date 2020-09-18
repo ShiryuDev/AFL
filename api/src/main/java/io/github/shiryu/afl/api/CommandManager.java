@@ -37,13 +37,17 @@ public abstract class CommandManager<T> {
 
     @NotNull
     public Object transform(@NotNull final CommandSender sender, @NotNull final String value, @NotNull final Class<?> elementType){
-        return elementType.equals(String.class) ? value : this.transformers.get(elementType).transform(sender, value);
+        final Transformer transformer = this.transformers.get(elementType);
+
+        if (transformer == null)
+            return null;
+
+        return elementType.equals(String.class) ? value : transformer.transform(sender, value);
     }
 
     @NotNull
     public List<String> getSuggestions(@NotNull final CommandSender sender, @NotNull final String cmdLine){
         final String[] split = cmdLine.split(" ", -1);
-        final int spaceIndex = cmdLine.indexOf(' ');
 
         final ImmutableCommand command = findCommand(cmdLine);
 
