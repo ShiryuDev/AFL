@@ -35,6 +35,8 @@ public class BukkitExecutor implements CommandExecutor, TabCompleter {
                     return false;
 
                 break;
+            default:
+                break;
         }
 
 

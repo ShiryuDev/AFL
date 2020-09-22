@@ -11,18 +11,18 @@ public class LongTransformer implements Transformer<Long> {
     @Override
     public @NotNull Long transform(@NotNull final CommandSender sender, @NotNull final String value) {
         if (value.toLowerCase(Locale.ENGLISH).contains("e"))
-            return 0l;
+            return 0L;
 
         try {
             long parsed = Long.parseLong(value);
 
             if (Double.isNaN(parsed) || !Double.isFinite(parsed))
-                return 0l;
+                return 0L;
 
 
             return parsed;
         } catch (NumberFormatException exception) {
-            return 0l;
+            return 0L;
         }
     }
 }
