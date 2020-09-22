@@ -24,18 +24,10 @@ https://discord.com/invite/xaGZhwW
     </repositories>
 
     <dependencies>
-        ## for bukkit projects
         <dependency>
-            <groupId>com.github.ShiryuDev.commands</groupId>
+            <groupId>com.github.ShiryuDev.AFL</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.4.9</version>
-        </dependency>
-        
-        ## for bungeecord projects
-        <dependency>
-            <groupId>com.github.ShiryuDev.commands</groupId>
-            <artifactId>bungee</artifactId>
-            <version>1.4.9</version>
+            <version>1.2</version>
         </dependency>
     </dependencies>
      
